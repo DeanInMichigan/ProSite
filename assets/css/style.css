@@ -2,14 +2,14 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #0f1117;
-  --surface:  #1a1d27;
-  --border:   #2a2d3a;
-  --accent:   #4f8ef7;
-  --accent2:  #7c6af7;
-  --text:     #e2e8f0;
-  --muted:    #8892a4;
-  --code-bg:  #12151e;
+  --bg:       #ffffff;
+  --surface:  #f6f8fa;
+  --border:   #d0d7de;
+  --accent:   #0969da;
+  --accent2:  #6f42c1;
+  --text:     #1f2328;
+  --muted:    #57606a;
+  --code-bg:  #f0f2f5;
   --radius:   8px;
   --max-w:    860px;
 }
@@ -33,7 +33,7 @@ a:hover { text-decoration: underline; }
 /* Nav */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(15, 17, 23, 0.85);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 16px 0;
@@ -300,7 +300,7 @@ footer {
   border: 1px solid var(--border);
   color: var(--muted);
 }
-.prose tr:hover td { background: rgba(255,255,255,0.02); }
+.prose tr:hover td { background: rgba(0,0,0,0.02); }
 .prose .note {
   background: rgba(79, 142, 247, 0.07);
   border-left: 3px solid var(--accent);
