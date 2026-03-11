@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enterprise-Grade Home Network for Under $500 — Dean Abraham</title>
+  <meta name="description" content="How I built a secure, enterprise-style home network using Unifi hardware and a Raspberry Pi running Pi-hole — for under $500." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="inner">
+      <a href="../index.html" class="nav-brand">Dean<span>.</span>dev</a>
+      <div class="nav-links">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#articles">Articles</a>
+        <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="article-page">
+    <div class="container">
+
+      <a href="../index.html#articles" class="back-link">← Back to Articles</a>
+
+      <div class="article-header">
+        <div class="article-tag">Networking &amp; Security</div>
+        <h1>Enterprise-Grade Home Network Security for Under $500</h1>
+        <p class="article-meta">Dean Abraham &nbsp;·&nbsp; Networking &amp; Security</p>
+      </div>
+
+      <article class="prose">
+
+        <p>
+          I wanted a home network that gave me real security visibility and control — not just a consumer
+          router with a web UI that hasn't been updated in three years. But I also didn't want a rack of
+          gear I barely understood. The goal was simple: get as close to an enterprise security posture
+          as possible, keep it under $500, and make sure I could actually understand and manage what I
+          built.
+        </p>
+
+        <p>
+          After a lot of research I landed on a Unifi stack paired with a Raspberry Pi running Pi-hole
+          as my DNS server. Here's what I built, why I chose each piece, and what it gives me that a
+          standard consumer router doesn't.
+        </p>
+
+        <h2>The Hardware</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Role</th>
+              <th>Approx. Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Unifi UCG Ultra</td>
+              <td>Gateway / firewall / controller</td>
+              <td>~$129</td>
+            </tr>
+            <tr>
+              <td>Unifi USW Lite 8 PoE</td>
+              <td>Managed switch (powers AP over Ethernet)</td>
+              <td>~$109</td>
+            </tr>
+            <tr>
+              <td>Unifi U7 Lite</td>
+              <td>Wi-Fi 7 access point</td>
+              <td>~$99</td>
+            </tr>
+            <tr>
+              <td>Raspberry Pi 4 (2GB)</td>
+              <td>Pi-hole DNS server</td>
+              <td>~$45–$80</td>
+            </tr>
+            <tr>
+              <td>MicroSD card + case</td>
+              <td>Pi-hole storage</td>
+              <td>~$15–$25</td>
+            </tr>
+            <tr>
+              <td colspan="2"><strong>Total</strong></td>
+              <td><strong>~$397–$442</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Why Unifi</h2>
+
+        <p>
+          Unifi (made by Ubiquiti) is the sweet spot between consumer gear and true enterprise equipment.
+          It is what many small businesses and schools actually run. The key difference from a consumer
+          router is that the gateway, switch, and access point are all managed from a single interface —
+          the Unifi Network application — which runs directly on the UCG Ultra. There is no cloud
+          subscription required and no monthly fee.
+        </p>
+
+        <p>
+          What that unified management buys you in practice:
+        </p>
+
+        <ul>
+          <li><strong>Per-device traffic visibility</strong> — you can see exactly what every device on the network is doing, in real time</li>
+          <li><strong>VLANs</strong> — separate your IoT devices, guest network, and personal computers so they can't talk to each other even when on the same physical network</li>
+          <li><strong>Firewall rules</strong> — block traffic between VLANs, restrict outbound connections, or isolate a device entirely, all from a clean UI</li>
+          <li><strong>Intrusion Detection &amp; Prevention (IDS/IPS)</strong> — the UCG Ultra includes threat detection that flags known malicious traffic patterns</li>
+          <li><strong>Automatic updates</strong> — firmware updates across all devices from one place</li>
+        </ul>
+
+        <h2>The UCG Ultra — Gateway and Brain</h2>
+
+        <p>
+          The UCG Ultra is the centerpiece. It replaces the router your ISP provided (which you should
+          put in bridge mode or bypass entirely). Beyond basic routing, it runs the full Unifi Network
+          controller software on-device, so there is no need for a separate server or a cloud account
+          to manage everything. Features that matter most for home security:
+        </p>
+
+        <ul>
+          <li><strong>Stateful firewall</strong> with customizable rules — not just port forwarding, but real inbound and outbound policy control</li>
+          <li><strong>Threat Management</strong> — built-in IDS/IPS that uses Emerging Threats signatures to detect and block known bad actors</li>
+          <li><strong>Traffic statistics</strong> — per-client bandwidth and DNS lookups over time</li>
+          <li><strong>VPN server</strong> — connect securely back to your home network from anywhere</li>
+        </ul>
+
+        <h2>The USW Lite 8 PoE — Managed Switch</h2>
+
+        <p>
+          A managed switch is what separates a proper network from a home setup where everything is
+          plugged into a cheap unmanaged switch or daisy-chained off the router. The USW Lite 8 PoE
+          has two important roles here:
+        </p>
+
+        <ul>
+          <li><strong>Powers the access point</strong> — the U7 Lite gets its power over the Ethernet cable (PoE), so no separate power adapter is needed near the ceiling where the AP is mounted</li>
+          <li><strong>VLAN tagging</strong> — the switch enforces which network each physical port belongs to, so a device plugged in with a cable can be isolated to the IoT VLAN just as easily as a wireless device</li>
+        </ul>
+
+        <h2>The U7 Lite — Wi-Fi 7 Access Point</h2>
+
+        <p>
+          The U7 Lite is a ceiling-mount Wi-Fi 7 access point. Compared to the antenna in a consumer
+          combo router, a dedicated AP gives better coverage, more consistent speeds, and cleaner
+          separation between the radio hardware and the routing/firewall logic.
+        </p>
+
+        <p>
+          Because it is managed by the UCG Ultra, you get one consistent SSID experience across the
+          whole house — devices roam seamlessly between bands without you managing it. The access point
+          also enforces VLAN assignments for wireless clients, so your IoT SSID is truly isolated at
+          the network level, not just a separate password.
+        </p>
+
+        <h2>Pi-hole — DNS-Level Ad and Threat Blocking</h2>
+
+        <p>
+          Pi-hole is a DNS sinkhole that runs on a Raspberry Pi. Every DNS query from every device on
+          your network passes through it before reaching the internet. When a device tries to resolve
+          a domain that is on a blocklist — ad networks, known malware domains, telemetry endpoints,
+          tracking services — Pi-hole returns nothing. The request never leaves your network.
+        </p>
+
+        <p>
+          This is fundamentally different from browser-based ad blockers:
+        </p>
+
+        <ul>
+          <li>It works on <strong>every device</strong> — smart TVs, phones, gaming consoles, IoT devices — not just browsers where you can install an extension</li>
+          <li>It blocks at the <strong>network level</strong>, before the connection is made, not after the content is downloaded</li>
+          <li>It gives you a <strong>full query log</strong> — you can see every domain every device on your network has tried to reach, which is excellent for spotting misbehaving devices</li>
+        </ul>
+
+        <p>
+          To integrate Pi-hole with Unifi, you set the Pi-hole's static IP as the DNS server in the
+          UCG Ultra's DHCP settings. Every client on every VLAN then automatically uses Pi-hole for
+          DNS without any per-device configuration.
+        </p>
+
+        <div class="note">
+          Pi-hole also acts as a local DNS server, meaning you can give your devices memorable
+          hostnames (like <code>nas.home</code> or <code>pi.home</code>) that resolve inside your
+          network without touching the public internet.
+        </div>
+
+        <h2>The VLANs I Run</h2>
+
+        <p>
+          Network segmentation is the single most impactful security decision in this setup. Even if
+          one device gets compromised, it can only reach other devices on the same VLAN — not your
+          computers, not your NAS, not your router's admin interface. My three-VLAN layout:
+        </p>
+
+        <ul>
+          <li><strong>Main</strong> — trusted computers and phones. Full internet access, can reach the Pi-hole admin UI.</li>
+          <li><strong>IoT</strong> — smart TVs, light bulbs, thermostats, cameras. Internet access only; blocked from reaching any device on Main.</li>
+          <li><strong>Guest</strong> — a clean SSID for visitors. Internet only, isolated from everything else, bandwidth-limited.</li>
+        </ul>
+
+        <h2>What This Gives You That a Consumer Router Doesn't</h2>
+
+        <ul>
+          <li>Real-time visibility into every device and every DNS query on your network</li>
+          <li>Actual firewall rules, not just NAT and port forwarding</li>
+          <li>Network-wide ad and malware domain blocking, including on devices that can't run blockers themselves</li>
+          <li>VLAN isolation so a compromised smart bulb can't probe your laptop</li>
+          <li>IDS/IPS that flags known threat signatures passing through the gateway</li>
+          <li>A setup you actually understand well enough to troubleshoot and extend</li>
+        </ul>
+
+        <h2>Was It Worth It?</h2>
+
+        <p>
+          Yes. The combination of Unifi's unified management and Pi-hole's DNS visibility gives me a
+          level of awareness and control over my home network that I didn't have before. More
+          importantly, I understand every piece of it — how the VLANs are enforced, why the Pi-hole
+          is authoritative for DNS, what the IDS is watching for. That understanding is the point.
+          Security tooling you don't understand doesn't actually make you more secure; it just gives
+          you a false sense of it.
+        </p>
+
+        <p>
+          Under $500, no monthly fees, no vendor cloud account required, and a network I can honestly
+          say I know inside and out.
+        </p>
+
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Dean Abraham &nbsp;·&nbsp; <a href="https://github.com/DeanInMichigan/ProSite" target="_blank" rel="noopener">Source on GitHub</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
