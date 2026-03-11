@@ -40,6 +40,42 @@ Key advantages for small business deployments:
 - **Simple backups** — container definitions are text files that live in version control, so the entire application is recoverable
 - **No vendor lock-in** — Docker containers run on any cloud provider or on-premise server
 
+```mermaid
+flowchart TB
+  subgraph mac ["🍎 macOS — Developer Machine"]
+    direction TB
+    Code["Python source code\n+ Dockerfile"]
+    Build["docker build\n→ Container image"]
+    Code --> Build
+  end
+
+  Image(["📦 Container Image\nPython runtime · Libraries · App code · Config"])
+
+  Build --> Image
+
+  subgraph win ["🪟 Windows — Client Machine"]
+    direction TB
+    RunW["docker run"]
+    AppW["Python App\nruns identically"]
+    RunW --> AppW
+  end
+
+  subgraph cloud ["☁️ Cloud Server (Linux)"]
+    direction TB
+    RunC["docker run"]
+    AppC["Python App\nruns identically"]
+    RunC --> AppC
+  end
+
+  Image --> RunW
+  Image --> RunC
+
+  style Image fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+  style mac fill:#f0fdf4,stroke:#86efac,color:#14532d
+  style win fill:#fef9c3,stroke:#fcd34d,color:#713f12
+  style cloud fill:#f5f3ff,stroke:#c4b5fd,color:#4c1d95
+```
+
 ## A Real-World Example: KCI_Pinacle
 
 This article isn't purely theoretical — it grew directly out of a project I built called **KCI_Pinacle**. A friend who runs a small business came to me with a problem: his accounting software needed to exchange data with his bank's **Positive Pay** interface, a fraud-prevention system that guards against check washing. The bank's system expected a specific file format that his accounting application couldn't produce on its own, and there was no off-the-shelf tool that bridged the two.
