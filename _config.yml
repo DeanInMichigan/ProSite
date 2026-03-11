@@ -1,2 +1,22 @@
-# GitHub Pages configuration
-# Disables Jekyll processing so GitHub Pages serves the static HTML directly
+title: Dean Abraham — Developer
+description: Professional development site — articles, notes, and resources on software development.
+url: "https://deaninmichigan.github.io"
+baseurl: "/ProSite"
+
+collections:
+  articles:
+    output: true
+    permalink: /articles/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: articles
+    values:
+      layout: article
+
+exclude:
+  - BranchingStrategy
+  - CLAUDE.md
+  - Gemfile
+  - Gemfile.lock

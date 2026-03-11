@@ -1,131 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dean Abraham — Developer</title>
-  <meta name="description" content="Dean Abraham's professional development site — articles, notes, and resources on software development." />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <link rel="stylesheet" href="assets/css/style.css" />
-</head>
-<body>
+---
+layout: default
+title: "Dean Abraham — Developer"
+description: "Dean Abraham's professional development site — articles, notes, and resources on software development."
+---
 
-  <nav>
-    <div class="inner">
-      <span class="nav-brand">Dean<span>.</span>dev</span>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#articles">Articles</a>
-        <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-content">
-          <div class="hero-tag">Professional Development</div>
-          <h1>Hi, I'm <span>Dean Abraham</span></h1>
-          <p class="tagline">
-            Software developer based in Michigan. I write about development practices,
-            tools, and lessons learned along the way.
-          </p>
-          <div class="hero-links">
-            <a href="#articles" class="btn btn-primary">Read Articles</a>
-            <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener" class="btn btn-ghost">GitHub Profile</a>
-          </div>
-        </div>
-        <div class="hero-photo">
-          <img src="assets/images/IMG_6557.jpeg" alt="Dean Abraham" />
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">Professional Development</div>
+        <h1>Hi, I'm <span>Dean Abraham</span></h1>
+        <p class="tagline">
+          Software developer based in Michigan. I write about development practices,
+          tools, and lessons learned along the way.
+        </p>
+        <div class="hero-links">
+          <a href="#articles" class="btn btn-primary">Read Articles</a>
+          <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener" class="btn btn-ghost">GitHub Profile</a>
         </div>
       </div>
+      <div class="hero-photo">
+        <img src="{{ '/assets/images/IMG_6557.jpeg' | relative_url }}" alt="Dean Abraham" />
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="section-label">About Me</div>
-      <h2 class="section-title">Background &amp; Interests</h2>
-      <p class="about-bio">
-        I'm a developer focused on building reliable software and improving my craft continuously.
-        This site is where I document what I learn — from workflow best practices to architectural
-        decisions — so others (and future me) can benefit from the journey.
-      </p>
+<!-- About -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Background &amp; Interests</h2>
+    <p class="about-bio">
+      I'm a developer based in Michigan, focused on solving real problems with practical software.
+      Much of my work is driven by the needs of people around me — friends, small businesses, and
+      situations where the right tool simply doesn't exist yet. I work primarily on a Mac and enjoy
+      building solutions that bridge different platforms and environments.
+    </p>
+    <p class="about-bio" style="margin-top: 16px;">
+      One of my current projects is <strong>KCI_Pinacle</strong> — an application I built to help
+      a friend who needed a reliable way to exchange data between his accounting software and his
+      bank's Positive Pay interface, a fraud-prevention system that protects against check washing.
+      His shop runs on Windows while I develop on Mac, which added an interesting cross-platform
+      dimension to the work.
+    </p>
 
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Technologies</h3>
-          <ul>
-            <li>Git &amp; GitHub</li>
-            <li>Web Development</li>
-            <li>Software Engineering</li>
-            <li>Developer Tooling</li>
-          </ul>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Technologies</h3>
+        <ul>
+          <li>Python &amp; Docker</li>
+          <li>Git &amp; GitHub</li>
+          <li>macOS development</li>
+          <li>Cross-platform tooling</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3>Focus Areas</h3>
+        <ul>
+          <li>Small business automation</li>
+          <li>Financial data integrations</li>
+          <li>Developer workflows</li>
+          <li>Practical, real-world software</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Articles -->
+<section class="articles" id="articles">
+  <div class="container">
+    <div class="articles-header">
+      <div class="section-label">Articles</div>
+      <h2 class="section-title">Writing &amp; Guides</h2>
+    </div>
+
+    <div class="article-list">
+      {% assign sorted_articles = site.articles | sort: 'order' %}
+      {% for article in sorted_articles %}
+      <a href="{{ article.url | relative_url }}" class="article-card">
+        <div class="article-card-body">
+          <div class="article-tag">{{ article.tag }}</div>
+          <h3>{{ article.title }}</h3>
+          <p>{{ article.description }}</p>
         </div>
-        <div class="about-card">
-          <h3>Interests</h3>
-          <ul>
-            <li>Clean code practices</li>
-            <li>Developer workflows</li>
-            <li>Continuous learning</li>
-            <li>Open source</li>
-          </ul>
-        </div>
-      </div>
+        <span class="article-arrow">→</span>
+      </a>
+      {% endfor %}
     </div>
-  </section>
-
-  <!-- Articles -->
-  <section class="articles" id="articles">
-    <div class="container">
-      <div class="articles-header">
-        <div class="section-label">Articles</div>
-        <h2 class="section-title">Writing &amp; Guides</h2>
-      </div>
-
-      <div class="article-list">
-
-        <a href="articles/branching-strategy.html" class="article-card">
-          <div class="article-card-body">
-            <div class="article-tag">Git &amp; Workflow</div>
-            <h3>Branch Strategy Guide</h3>
-            <p>A practical guide to managing a three-branch workflow — development, testing, and main — with protected branches and pull request promotions.</p>
-          </div>
-          <span class="article-arrow">→</span>
-        </a>
-
-        <a href="articles/docker-python-small-business.html" class="article-card">
-          <div class="article-card-body">
-            <div class="article-tag">Python &amp; Docker</div>
-            <h3>Docker &amp; Python: An Affordable Platform for Small Business Applications</h3>
-            <p>How small businesses can use Docker and Python to build powerful custom applications without paying for expensive low-code platform licenses.</p>
-          </div>
-          <span class="article-arrow">→</span>
-        </a>
-
-        <a href="articles/home-network-unifi-pihole.html" class="article-card">
-          <div class="article-card-body">
-            <div class="article-tag">Networking &amp; Security</div>
-            <h3>Enterprise-Grade Home Network Security for Under $500</h3>
-            <p>How I built a secure, segmented home network using a Unifi UCG Ultra, USW Lite 8 PoE switch, U7 Lite access point, and a Raspberry Pi running Pi-hole for DNS-level blocking.</p>
-          </div>
-          <span class="article-arrow">→</span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p>© 2026 Dean Abraham &nbsp;·&nbsp; <a href="https://github.com/DeanInMichigan/ProSite" target="_blank" rel="noopener">Source on GitHub</a></p>
-    </div>
-  </footer>
-
-</body>
-</html>
+  </div>
+</section>
