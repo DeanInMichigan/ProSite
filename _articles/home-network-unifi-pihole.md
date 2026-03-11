@@ -21,6 +21,42 @@ After a lot of research I landed on a Unifi stack paired with a Raspberry Pi run
 
 **Total estimated cost: ~$397–$442**
 
+```mermaid
+flowchart TD
+  Internet(["🌐 Internet"])
+
+  subgraph gw ["UCG Ultra — Gateway · Firewall · IDS/IPS"]
+    FW["Routes traffic · Enforces firewall rules · VPN"]
+  end
+
+  PH["🍓 Raspberry Pi\nPi-hole DNS\nBlocks ads & malware domains"]
+
+  subgraph sw ["USW Lite 8 PoE — Managed Switch"]
+    AP["U7 Lite — Wi-Fi 7 Access Point"]
+  end
+
+  subgraph main ["VLAN: Main (Trusted)"]
+    MC["💻 Computers · 📱 Phones"]
+  end
+
+  subgraph iot ["VLAN: IoT (Isolated)"]
+    IC["📺 TVs · 💡 Smart devices · 📷 Cameras"]
+  end
+
+  subgraph guest ["VLAN: Guest (Internet only)"]
+    GC["👥 Visitor devices"]
+  end
+
+  Internet <--> gw
+  gw <-->|"All DNS queries"| PH
+  gw --> sw
+  AP --> main & iot & guest
+
+  iot -. "🚫 blocked" .- main
+  guest -. "🚫 blocked" .- main
+  guest -. "🚫 blocked" .- iot
+```
+
 ## Why Unifi
 
 Unifi (made by Ubiquiti) is the sweet spot between consumer gear and true enterprise equipment. It is what many small businesses and schools actually run. The key difference from a consumer router is that the gateway, switch, and access point are all managed from a single interface — the Unifi Network application — which runs directly on the UCG Ultra. There is no cloud subscription required and no monthly fee.
@@ -78,6 +114,23 @@ Network segmentation is the single most impactful security decision in this setu
 - **Main** — trusted computers and phones. Full internet access, can reach the Pi-hole admin UI.
 - **IoT** — smart TVs, light bulbs, thermostats, cameras. Internet access only; blocked from reaching any device on Main.
 - **Guest** — a clean SSID for visitors. Internet only, isolated from everything else, bandwidth-limited.
+
+```mermaid
+flowchart LR
+  Device["Any device\non any VLAN"]
+  PH["Pi-hole\nDNS"]
+  Block(["❌ Blocked\nrequest dropped"])
+  UCG["UCG Ultra\nFirewall"]
+  Internet(["🌐 Internet"])
+
+  Device -->|"DNS query"| PH
+  PH -->|"Domain on blocklist?"| Block
+  PH -->|"Domain allowed\nresolves IP"| UCG
+  UCG -->|"VLAN rules\nchecked"| Internet
+
+  style Block fill:#fee2e2,stroke:#ef4444,color:#7f1d1d
+  style Internet fill:#dcfce7,stroke:#22c55e,color:#14532d
+```
 
 ## What This Gives You That a Consumer Router Doesn't
 

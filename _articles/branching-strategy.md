@@ -7,8 +7,14 @@ order: 1
 
 All work flows through three branches in one direction — from active development through validation to production.
 
-```
-development  →  (Pull Request)  →  testing  →  (Pull Request)  →  main
+```mermaid
+flowchart LR
+  development -->|Pull Request| testing
+  testing -->|Pull Request| main
+
+  style development fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+  style testing  fill:#fef9c3,stroke:#eab308,color:#713f12
+  style main     fill:#dcfce7,stroke:#22c55e,color:#14532d
 ```
 
 | Branch | Purpose | Direct Pushes |
