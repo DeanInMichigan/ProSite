@@ -122,10 +122,8 @@ nav .inner::after {
 .nav-links a:hover { background: var(--lcars-yellow); color: #000; text-decoration: none; }
 
 #theme-toggle {
-  display: inline-flex;
-  align-items: center;
   height: 32px;
-  padding: 0 16px;
+  padding: 0 10px;
   background: var(--lcars-red);
   border: none;
   color: #fff;
@@ -136,9 +134,8 @@ nav .inner::after {
   text-transform: uppercase;
   border-radius: 16px;
   cursor: pointer;
-  transition: background 0.15s;
 }
-#theme-toggle:hover { background: var(--lcars-orange); color: #000; }
+#theme-toggle option { background: #111; color: var(--lcars-tan); }
 
 /* ══════════════════════════════════════
    HERO — LCARS main display panel

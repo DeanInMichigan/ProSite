@@ -33,7 +33,10 @@
         <a href="{{ '/#about' | relative_url }}">About</a>
         <a href="{{ '/#articles' | relative_url }}">Articles</a>
         <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener">GitHub</a>
-        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">LCARS</button>
+        <select id="theme-toggle" onchange="setTheme(this.value)" aria-label="Select theme">
+          <option value="default">Default</option>
+          <option value="lcars">LCARS</option>
+        </select>
       </div>
     </div>
   </nav>
@@ -61,12 +64,9 @@
       link.href = base + (theme === 'lcars' ? 'lcars.css' : 'style.css');
       document.getElementById('theme-toggle').textContent = theme === 'lcars' ? 'Default' : 'LCARS';
     }
-    function toggleTheme() {
-      setTheme(getTheme() === 'lcars' ? 'default' : 'lcars');
-    }
-    // Set correct button label on load
+    // Set correct dropdown value on load
     (function () {
-      document.getElementById('theme-toggle').textContent = getTheme() === 'lcars' ? 'Default' : 'LCARS';
+      document.getElementById('theme-toggle').value = getTheme();
     })();
   </script>
 </body>
