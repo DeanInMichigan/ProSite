@@ -12,13 +12,14 @@
   <link rel="stylesheet" id="theme-stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
   <script>
     (function () {
+      var cssMap = { lcars: 'lcars.css', terminal: 'terminal.css' };
       var base = document.querySelector('link#theme-stylesheet').href.replace(/style\.css$/, '');
       var theme = document.cookie.split('; ').reduce(function (acc, pair) {
         var parts = pair.split('=');
         return parts[0] === 'theme' ? parts[1] : acc;
       }, 'default');
-      if (theme === 'lcars') {
-        document.getElementById('theme-stylesheet').href = base + 'lcars.css';
+      if (cssMap[theme]) {
+        document.getElementById('theme-stylesheet').href = base + cssMap[theme];
       }
     })();
   </script>
@@ -36,6 +37,7 @@
         <select id="theme-toggle" onchange="setTheme(this.value)" aria-label="Select theme">
           <option value="default">Default</option>
           <option value="lcars">LCARS</option>
+          <option value="terminal">Terminal</option>
         </select>
       </div>
     </div>
@@ -58,11 +60,11 @@
       }, 'default');
     }
     function setTheme(theme) {
+      var cssMap = { lcars: 'lcars.css', terminal: 'terminal.css' };
       document.cookie = 'theme=' + theme + '; path=/; max-age=31536000; SameSite=Lax';
       var link = document.getElementById('theme-stylesheet');
       var base = link.href.replace(/[^/]+\.css$/, '');
-      link.href = base + (theme === 'lcars' ? 'lcars.css' : 'style.css');
-      document.getElementById('theme-toggle').textContent = theme === 'lcars' ? 'Default' : 'LCARS';
+      link.href = base + (cssMap[theme] || 'style.css');
     }
     // Set correct dropdown value on load
     (function () {
