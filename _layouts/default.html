@@ -34,14 +34,22 @@
         <a href="{{ '/#about' | relative_url }}">About</a>
         <a href="{{ '/#articles' | relative_url }}">Articles</a>
         <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener">GitHub</a>
-        <select id="theme-toggle" onchange="setTheme(this.value)" aria-label="Select theme">
-          <option value="default">Default</option>
-          <option value="lcars">LCARS</option>
-          <option value="terminal">Terminal</option>
-        </select>
+        <button id="theme-label" onclick="openThemeDialog()" aria-haspopup="dialog">Theme</button>
       </div>
     </div>
   </nav>
+
+  <!-- Theme dialog -->
+  <dialog id="theme-dialog" aria-modal="true" aria-label="Select theme">
+    <h2>Select Theme</h2>
+    <ul>
+      <li><button data-theme="default" onclick="pickTheme('default')">Default</button></li>
+      <li><button data-theme="lcars"   onclick="pickTheme('lcars')">LCARS</button></li>
+      <li><button data-theme="terminal" onclick="pickTheme('terminal')">Terminal</button></li>
+    </ul>
+    <button class="dialog-close" onclick="closeThemeDialog()" aria-label="Close">✕</button>
+  </dialog>
+  <div id="theme-backdrop" onclick="closeThemeDialog()"></div>
 
   {{ content }}
 
@@ -53,23 +61,49 @@
   </footer>
 
   <script>
+    var cssMap = { lcars: 'lcars.css', terminal: 'terminal.css' };
+
     function getTheme() {
       return document.cookie.split('; ').reduce(function (acc, pair) {
         var parts = pair.split('=');
         return parts[0] === 'theme' ? parts[1] : acc;
       }, 'default');
     }
+
     function setTheme(theme) {
-      var cssMap = { lcars: 'lcars.css', terminal: 'terminal.css' };
       document.cookie = 'theme=' + theme + '; path=/; max-age=31536000; SameSite=Lax';
       var link = document.getElementById('theme-stylesheet');
       var base = link.href.replace(/[^/]+\.css$/, '');
       link.href = base + (cssMap[theme] || 'style.css');
     }
-    // Set correct dropdown value on load
-    (function () {
-      document.getElementById('theme-toggle').value = getTheme();
-    })();
+
+    function openThemeDialog() {
+      var dialog = document.getElementById('theme-dialog');
+      var backdrop = document.getElementById('theme-backdrop');
+      // Mark active theme
+      dialog.querySelectorAll('button[data-theme]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.theme === getTheme());
+      });
+      backdrop.classList.add('open');
+      dialog.showModal ? dialog.showModal() : dialog.setAttribute('open', '');
+    }
+
+    function closeThemeDialog() {
+      var dialog = document.getElementById('theme-dialog');
+      var backdrop = document.getElementById('theme-backdrop');
+      backdrop.classList.remove('open');
+      dialog.close ? dialog.close() : dialog.removeAttribute('open');
+    }
+
+    function pickTheme(theme) {
+      setTheme(theme);
+      closeThemeDialog();
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeThemeDialog();
+    });
   </script>
 </body>
 

@@ -89,17 +89,85 @@ nav .inner {
 }
 .nav-links a:hover { color: var(--accent); text-shadow: var(--glow-dim); text-decoration: none; }
 
-#theme-toggle {
-  background: var(--bg);
+/* Theme label button */
+#theme-label {
+  background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  padding: 3px 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
   cursor: pointer;
 }
-#theme-toggle option { background: #0c0c0c; color: var(--accent); }
+#theme-label:hover { background: var(--accent); color: #000; box-shadow: var(--glow-dim); }
+
+/* Theme dialog backdrop */
+#theme-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 199;
+}
+#theme-backdrop.open { display: block; }
+
+/* Theme dialog */
+#theme-dialog {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-left: 3px solid var(--accent);
+  box-shadow: var(--glow), inset 0 0 30px rgba(0,255,65,0.04);
+  padding: 28px 32px 24px;
+  min-width: 240px;
+}
+#theme-dialog::backdrop { display: none; }
+#theme-dialog h2 {
+  font-family: 'VT323', monospace;
+  font-size: 1.6rem;
+  color: var(--accent);
+  text-shadow: var(--glow-dim);
+  margin-bottom: 20px;
+  letter-spacing: 0.06em;
+}
+#theme-dialog h2::before { content: '> '; color: var(--dim); }
+#theme-dialog ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+#theme-dialog ul button {
+  width: 100%;
+  text-align: left;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+#theme-dialog ul button::before { content: '  '; }
+#theme-dialog ul button:hover { background: var(--surface); color: var(--accent); border-color: var(--accent); }
+#theme-dialog ul button.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-shadow: var(--glow-dim);
+}
+#theme-dialog ul button.active::before { content: '> '; }
+.dialog-close {
+  position: absolute; top: 10px; right: 14px;
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.dialog-close:hover { color: var(--accent); text-shadow: var(--glow-dim); }
 
 /* ══════════════════════════════════════
    HERO

@@ -57,16 +57,75 @@ nav .inner {
 .nav-links a { color: var(--muted); font-size: 0.9rem; transition: color 0.2s; }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
 
-#theme-toggle {
+/* Theme label button */
+#theme-label {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+}
+#theme-label:hover { color: var(--text); }
+
+/* Theme dialog backdrop */
+#theme-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 199;
+}
+#theme-backdrop.open { display: block; }
+
+/* Theme dialog */
+#theme-dialog {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 32px 40px 28px;
+  min-width: 220px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+#theme-dialog::backdrop { display: none; }
+#theme-dialog h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+#theme-dialog ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+#theme-dialog ul button {
+  width: 100%;
+  text-align: left;
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 4px 8px;
   border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.92rem;
+  padding: 9px 16px;
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
 }
+#theme-dialog ul button:hover { background: var(--border); }
+#theme-dialog ul button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.dialog-close {
+  position: absolute; top: 10px; right: 14px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.dialog-close:hover { color: var(--text); }
 
 /* Hero / About */
 .hero {

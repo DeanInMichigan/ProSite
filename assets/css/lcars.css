@@ -121,9 +121,12 @@ nav .inner::after {
 .nav-links a:nth-child(3) { background: var(--lcars-teal); }
 .nav-links a:hover { background: var(--lcars-yellow); color: #000; text-decoration: none; }
 
-#theme-toggle {
+/* Theme label button */
+#theme-label {
+  display: inline-flex;
+  align-items: center;
   height: 32px;
-  padding: 0 10px;
+  padding: 0 16px;
   background: var(--lcars-red);
   border: none;
   color: #fff;
@@ -135,7 +138,77 @@ nav .inner::after {
   border-radius: 16px;
   cursor: pointer;
 }
-#theme-toggle option { background: #111; color: var(--lcars-tan); }
+#theme-label:hover { background: var(--lcars-orange); color: #000; }
+
+/* Theme dialog backdrop */
+#theme-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 199;
+}
+#theme-backdrop.open { display: block; }
+
+/* Theme dialog */
+#theme-dialog {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  background: var(--bg);
+  border: 3px solid var(--lcars-orange);
+  border-radius: 0;
+  padding: 0;
+  min-width: 280px;
+  box-shadow: 0 0 40px rgba(255,153,0,0.3);
+}
+#theme-dialog::backdrop { display: none; }
+#theme-dialog h2 {
+  background: var(--lcars-orange);
+  color: #000;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  margin: 0;
+}
+#theme-dialog ul {
+  list-style: none;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#theme-dialog ul button {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--lcars-orange);
+  border-radius: 16px;
+  color: var(--lcars-tan);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+#theme-dialog ul button:hover { background: var(--lcars-orange); color: #000; }
+#theme-dialog ul button.active { background: var(--lcars-orange); color: #000; }
+.dialog-close {
+  position: absolute; top: 8px; right: 12px;
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.dialog-close:hover { color: var(--lcars-red); }
 
 /* ══════════════════════════════════════
    HERO — LCARS main display panel
