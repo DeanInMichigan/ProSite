@@ -57,6 +57,8 @@ nav .inner {
 .nav-links a { color: var(--muted); font-size: 0.9rem; transition: color 0.2s; }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
 
+.ascii-name { display: none; }
+
 /* Theme label button */
 #theme-label {
   background: none;

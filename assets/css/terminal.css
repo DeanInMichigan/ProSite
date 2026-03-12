@@ -209,6 +209,19 @@ h1 {
   letter-spacing: 0.04em;
 }
 h1 span { color: #fff; text-shadow: var(--glow); }
+.hero-name-text { display: none; }
+
+.ascii-name {
+  display: block;
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 0.58rem;
+  line-height: 1.25;
+  color: var(--accent);
+  text-shadow: var(--glow-dim);
+  white-space: pre;
+  overflow-x: auto;
+  margin: 0 0 20px;
+}
 
 /* Blinking cursor after h1 */
 h1::after {

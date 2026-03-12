@@ -121,6 +121,8 @@ nav .inner::after {
 .nav-links a:nth-child(3) { background: var(--lcars-teal); }
 .nav-links a:hover { background: var(--lcars-yellow); color: #000; text-decoration: none; }
 
+.ascii-name { display: none; }
+
 /* Theme label button */
 #theme-label {
   display: inline-flex;
