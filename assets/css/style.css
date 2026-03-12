@@ -53,9 +53,26 @@ nav .inner {
   letter-spacing: -0.02em;
 }
 .nav-brand span { color: var(--accent); }
-.nav-links { display: flex; gap: 28px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
 .nav-links a { color: var(--muted); font-size: 0.9rem; transition: color 0.2s; }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+#theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#theme-toggle:hover {
+  background: var(--border);
+  color: var(--text);
+}
 
 /* Hero / About */
 .hero {

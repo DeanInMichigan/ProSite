@@ -9,7 +9,19 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+  <link rel="stylesheet" id="theme-stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+  <script>
+    (function () {
+      var base = document.querySelector('link#theme-stylesheet').href.replace(/style\.css$/, '');
+      var theme = document.cookie.split('; ').reduce(function (acc, pair) {
+        var parts = pair.split('=');
+        return parts[0] === 'theme' ? parts[1] : acc;
+      }, 'default');
+      if (theme === 'lcars') {
+        document.getElementById('theme-stylesheet').href = base + 'lcars.css';
+      }
+    })();
+  </script>
 </head>
 
 <body>
@@ -21,6 +33,7 @@
         <a href="{{ '/#about' | relative_url }}">About</a>
         <a href="{{ '/#articles' | relative_url }}">Articles</a>
         <a href="https://github.com/DeanInMichigan" target="_blank" rel="noopener">GitHub</a>
+        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">LCARS</button>
       </div>
     </div>
   </nav>
@@ -34,6 +47,28 @@
     </div>
   </footer>
 
+  <script>
+    function getTheme() {
+      return document.cookie.split('; ').reduce(function (acc, pair) {
+        var parts = pair.split('=');
+        return parts[0] === 'theme' ? parts[1] : acc;
+      }, 'default');
+    }
+    function setTheme(theme) {
+      document.cookie = 'theme=' + theme + '; path=/; max-age=31536000; SameSite=Lax';
+      var link = document.getElementById('theme-stylesheet');
+      var base = link.href.replace(/[^/]+\.css$/, '');
+      link.href = base + (theme === 'lcars' ? 'lcars.css' : 'style.css');
+      document.getElementById('theme-toggle').textContent = theme === 'lcars' ? 'Default' : 'LCARS';
+    }
+    function toggleTheme() {
+      setTheme(getTheme() === 'lcars' ? 'default' : 'lcars');
+    }
+    // Set correct button label on load
+    (function () {
+      document.getElementById('theme-toggle').textContent = getTheme() === 'lcars' ? 'Default' : 'LCARS';
+    })();
+  </script>
 </body>
 
 </html>
