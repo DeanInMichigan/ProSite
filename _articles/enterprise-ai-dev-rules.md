@@ -122,3 +122,7 @@ Your developers are going to use AI tools. The question isn't whether — it's w
 The organizations that get this right won't be the ones that locked everything down. They'll be the ones that built clear, practical guardrails that made the right thing the easy thing.
 
 Set the rules. Communicate them clearly. And build a culture where engineers feel empowered to use powerful tools responsibly — not around the rules, but within them.
+
+---
+
+*Next: [Chapter 2: Building an Enterprise AI Development Workflow]({{ '/articles/enterprise-ai-dev-workflow/' | relative_url }}) — what a complete AI-assisted dev workflow looks like, stage by stage.*
