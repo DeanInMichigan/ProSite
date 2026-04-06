@@ -124,7 +124,7 @@ This isn't about making developers slower or less trusted. It's about building t
 
 The teams that will win with AI aren't the ones who give their developers access to the best tools. They're the ones who build workflows that make those tools safe to use at scale — where quality, security, and accountability are baked in, not bolted on.
 
-Chapter 3 coming soon: how to measure whether your AI-assisted development is actually working — and what the metrics should look like.
+[Chapter 3: The Baseline Rules for AI-Assisted Development]({{ '/articles/enterprise-ai-baseline-rules/' | relative_url }}) — twenty practical rules for developers and teams, covering prompting, code review, security, and quality gates.
 
 ---
 
